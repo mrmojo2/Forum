@@ -8,7 +8,7 @@ import { FaBars } from 'react-icons/fa'
 import { useMyContext } from '../context/AppContext'
 
 const Navbar = () => {
-    const { toggle, setToggle } = useMyContext()
+    const { toggleMinibar } = useMyContext()
     return (
         <Wrapper>
             <div className="nav-center">
@@ -28,7 +28,7 @@ const Navbar = () => {
                     <MdNotificationsActive />
                     <BsFillChatDotsFill />
                 </div>
-                <button className='minibar-toggle' onClick={() => setToggle(!toggle)}>
+                <button className='minibar-toggle' onClick={() => toggleMinibar()}>
                     <FaBars></FaBars>
                 </button>
             </div>

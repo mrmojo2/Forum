@@ -30,12 +30,12 @@ const login = async (req, res) => {
 
     const user = await User.findOne({ email }).select('+password')
     if (!user) {
-        throw new HttpError('Couldn\'t find user with that email', StatusCodes.NOT_FOUND)
+        throw new HttpError('invalid email or password', StatusCodes.BAD_REQUEST)
     }
 
     const isPasswordCorrect = await user.comparePassword(password)
     if (!isPasswordCorrect) {
-        throw new HttpError('invalid email or password', StatusCodes.UNAUTHORIZED)
+        throw new HttpError('invalid email or password', StatusCodes.BAD_REQUEST)
     }
 
     const tokenUser = { name: user.name, role: user.role, userId: user._id }
@@ -44,6 +44,22 @@ const login = async (req, res) => {
     res.status(StatusCodes.OK).json({ tokenUser })
 }
 
+const getUser = async (req, res) => {
+    const user = await User.findOne({ _id: req.user.userId })
+    if (!user) {
+        return res.status(StatusCodes.BAD_REQUEST)
+    }
+    res.status(200).json(req.user)
+}
+
+const logout = async (req, res) => {
+    res.cookie('token', 'logout', {
+        httpOnly: true,
+        expires: new Date(Date.now())              //removing cookie from browser
+    })
+    res.json({ msg: 'logged out' })
+}
 
 
-export { login, register }
+
+export { login, register, getUser, logout }

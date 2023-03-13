@@ -16,8 +16,8 @@ const SinglePost = ({ title, upvotes, comments, tags }) => {
                     <h3 className='post-header'>{title}</h3>
                 </header>
                 <div className='tags'>
-                    {tags.map(tag => {
-                        return <a href='#'>{tag}</a>
+                    {tags.map((tag, i) => {
+                        return <a href='#' key={i}>{tag}</a>
                     })}
                 </div>
                 <footer className='post-footer'>

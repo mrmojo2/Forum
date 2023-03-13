@@ -12,9 +12,9 @@ const PostsContainer = () => {
 
     return (
         <div className='posts-container'>
-            {posts.map(post => {
+            {posts.map((post, i) => {
                 return (
-                    <SinglePost {...post} />
+                    <SinglePost {...post} key={i} />
                 )
             })}
         </div>

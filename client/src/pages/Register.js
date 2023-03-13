@@ -10,13 +10,13 @@ import { useMyContext } from '../context/AppContext'
 
 
 const Login = () => {
-    const { loginUser, user, showAlert, loading } = useMyContext()
-    const [loginValues, setLoginValues] = useState({ email: '', password: '' })
+    const { registerUser, user, showAlert, loading } = useMyContext()
+    const [loginValues, setLoginValues] = useState({ name: '', email: '', password: '', faculty: 'BCT' })
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        loginUser(loginValues)
+        registerUser(loginValues)
     }
 
     useEffect(() => {
@@ -28,12 +28,17 @@ const Login = () => {
     return (
         <Wrapper>
             <div className='oauth-logins'>
-                <button className='google'><FcGoogle />Log in with Google</button><br />
-                <button className='github'><FaGithub />Log in with GitHub</button><br />
-                <button className='facebook'><FaFacebook />Log in with Facebook</button><br />
+                <button className='google'><FcGoogle />Sign up with Google</button><br />
+                <button className='github'><FaGithub />Sign up with GitHub</button><br />
+                <button className='facebook'><FaFacebook />Sign up with Facebook</button><br />
             </div>
             <form className='login-form' onSubmit={handleSubmit}>
                 {showAlert && <Alert />}
+                <div className='form-row'>
+                    <label>Name</label><br />
+                    <input type="text" value={loginValues.name} onChange={e => setLoginValues({ ...loginValues, name: e.target.value })} />
+                </div>
+                <br />
                 <div className='form-row'>
                     <label>Email</label><br />
                     <input type="text" value={loginValues.email} onChange={e => setLoginValues({ ...loginValues, email: e.target.value })} />
@@ -44,9 +49,20 @@ const Login = () => {
                     <input type="password" value={loginValues.password} onChange={e => setLoginValues({ ...loginValues, password: e.target.value })} />
                 </div>
                 <br />
-                <button className='btn login-btn' disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
+                <div className='form-row'>
+                    <label>Faculty</label><br />
+                    <select value={loginValues.faculty} onChange={e => setLoginValues({ ...loginValues, faculty: e.target.value })} >
+                        <option value="BCT">BCT</option>
+                        <option value="BEX">BEX</option>
+                        <option value="BCE">BCE</option>
+                        <option value="BME">BME</option>
+                        <option value="BEL">BEL</option>
+                    </select>
+                </div>
+                <br />
+                <button className='btn login-btn' disabled={loading}>{loading ? 'Loading...' : "Register"}</button>
             </form>
-            <p>Not a member? <Link to='/register'>Register</Link></p>
+            <p>Already a member? <Link to='/login'>Login</Link></p>
         </Wrapper>
     )
 }
@@ -63,7 +79,9 @@ const Wrapper = styled.main.attrs({ className: 'login-main' })`
     .form-row>label{
         font-weight:500;
     }
-    .form-row>input{
+    .form-row>input,
+    .form-row>select
+    {
         height:1.65rem;
         width:100%;
     }

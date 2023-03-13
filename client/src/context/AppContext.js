@@ -57,6 +57,16 @@ const AppProvider = ({ children }) => {
             clearAlert()
         }
     }
+    const registerUser = async (registerData) => {
+        dispatch({ type: 'SET_LOADING_TRUE' })
+        try {
+            const { data } = await axios.post('/api/v1/auth/register', registerData)
+            dispatch({ type: 'LOGIN_USER_SUCCESS', payload: data })
+        } catch (error) {
+            dispatch({ type: 'LOGIN_USER_FAIL', payload: error.response.data })
+            clearAlert()
+        }
+    }
     const logout = async () => {
         try {
             await axios.get('/api/v1/auth/logout')
@@ -94,7 +104,7 @@ const AppProvider = ({ children }) => {
         getUser()
     }, [])
 
-    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost }}>
+    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser }}>
         {children}
     </AppContext.Provider>
 

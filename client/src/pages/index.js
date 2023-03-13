@@ -7,5 +7,8 @@ import Events from './Events.js'
 import Login from './Login.js'
 import ProtectedRoute from './ProtectedRoute.js'
 import CreatePost from './CreatePost.js'
+import Register from './Register.js'
+import NotFound from './NotFound.js'
 
-export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost }
+
+export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound }

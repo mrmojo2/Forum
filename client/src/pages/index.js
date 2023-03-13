@@ -6,5 +6,6 @@ import Notice from './Notice'
 import Events from './Events.js'
 import Login from './Login.js'
 import ProtectedRoute from './ProtectedRoute.js'
+import CreatePost from './CreatePost.js'
 
-export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute }
+export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost }

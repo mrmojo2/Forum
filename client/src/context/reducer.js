@@ -8,10 +8,33 @@ const reducer = (state, action) => {
         })
     }
 
+    if (action.type === 'SHOW_ALERT') {
+        return ({
+            ...state,
+            showAlert: true,
+            alertText: action.payload.text,
+            alertType: action.payload.type,
+        })
+    }
+
     if (action.type === 'SET_USER_LOADING_FALSE') {
         return ({
             ...state,
             userLoading: false,
+        })
+    }
+
+    if (action.type === 'SET_USER_LOADING_TRUE') {
+        return ({
+            ...state,
+            userLoading: true,
+        })
+    }
+
+    if (action.type === 'SET_LOADING_TRUE') {
+        return ({
+            ...state,
+            loading: true
         })
     }
 
@@ -24,12 +47,6 @@ const reducer = (state, action) => {
         })
     }
 
-    if (action.type === 'GET_USER_BEGIN') {
-        return ({
-            ...state,
-            userLoading: true,
-        })
-    }
 
     if (action.type === 'GET_USER_SUCCESS') {
         return ({
@@ -39,12 +56,6 @@ const reducer = (state, action) => {
         })
     }
 
-    if (action.type === 'LOGIN_USER_BEGIN') {
-        return ({
-            ...state,
-            loading: true,
-        })
-    }
 
     if (action.type === 'LOGIN_USER_SUCCESS') {
         return ({
@@ -68,6 +79,33 @@ const reducer = (state, action) => {
         return ({
             ...initialState,
             userLoading: false,
+        })
+    }
+
+    if (action.type === 'get_posts_success') {
+        return ({
+            ...state,
+            loading: false,
+            posts: action.payload.posts
+        })
+    }
+
+    if (action.type === 'create_post_success') {
+        return ({
+            ...state,
+            loading: false,
+            showAlert: true,
+            alertText: action.payload.msg,
+            alertType: 'success'
+        })
+    }
+    if (action.type === 'create_post_fail') {
+        return ({
+            ...state,
+            loading: false,
+            showAlert: true,
+            alertText: action.payload.msg,
+            alertType: 'danger'
         })
     }
 

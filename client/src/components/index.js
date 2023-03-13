@@ -6,7 +6,9 @@ import Minibar from "./Minibar";
 import SinglePost from "./SinglePost";
 import Loading from './Loading'
 import Alert from "./Alert";
+import PostsContainer from "./PostsContainer";
 
 
-
-export { Navbar, Logo, Sidebar, Eventsbar, Minibar, SinglePost, Loading, Alert }
+export {
+    Navbar, Logo, Sidebar, Eventsbar, Minibar, SinglePost, Loading, Alert, PostsContainer
+}

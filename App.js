@@ -14,6 +14,7 @@ import { authenticateUser, authorizePermissions } from "./middlewares/atuh.js";
 
 
 import authRouter from './routes/authRoutes.js'
+import postRouter from './routes/postRoutes.js'
 
 
 app.use(moran('dev'))
@@ -22,13 +23,7 @@ app.use(cookieParser(process.env.JWT_SECRET))
 
 
 app.use('/api/v1/auth', authRouter)
-app.use('/protectedRoute', authenticateUser, (req, res) => {
-    res.send('this is a protected route')
-})
-app.use('/superProtectedRoute', authenticateUser, authorizePermissions('admin', 'owner'), (req, res) => {
-    res.send('this is a  super protected route only for admins')
-})
-
+app.use('/api/v1/posts', postRouter)
 
 
 app.use(notFoundMiddleware)

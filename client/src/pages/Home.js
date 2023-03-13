@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { SinglePost } from '../components'
+import { PostsContainer } from '../components'
+import { useMyContext } from '../context/AppContext'
 
 const Home = () => {
+    const { getPosts } = useMyContext()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        getPosts()
+    }, [])
+
     return (
         <Wrapper>
             <header className='home-head'>
                 <div className='heading'>
                     <h4>Top posts</h4>
-                    <button className='btn create-post'>Create Post</button>
+                    <button className='btn create-post' onClick={() => navigate('createPost')}>Create Post</button>
                 </div>
                 <div className="sort">
                     <button className='sort-btn'>New</button>
@@ -17,13 +26,7 @@ const Home = () => {
                     <button className='sort-btn'>Year</button>
                 </div>
             </header>
-            <div className='posts-container'>
-                <SinglePost />
-                <SinglePost />
-                <SinglePost />
-                <SinglePost />
-                <SinglePost />
-            </div>
+            <PostsContainer />
         </Wrapper>
     )
 }

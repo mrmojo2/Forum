@@ -3,25 +3,25 @@ import styled from 'styled-components'
 import { RxThickArrowUp, RxThickArrowDown } from 'react-icons/rx'
 import { BiCommentDetail, BiBookmark, BiFlag } from 'react-icons/bi'
 
-const SinglePost = () => {
+const SinglePost = ({ title, upvotes, comments, tags }) => {
     return (
         <Wrapper>
             <div className='upvotes'>
                 <button className='upvote-btn upvote'><RxThickArrowUp /></button>
-                <p>69</p>
+                <p>{upvotes}</p>
                 <button className='upvote-btn downvote'><RxThickArrowDown /></button>
             </div>
             <div className='post-main'>
                 <header>
-                    <h3 className='post-header'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea totam minima fuga iusto vel pariatur dicta! Praesentium corporis quaerat quisquam delectus ab ut fugit, eligendi sunt! Error aspernatur expedita doloribus?</h3>
+                    <h3 className='post-header'>{title}</h3>
                 </header>
                 <div className='tags'>
-                    <a href='#'>mech</a>
-                    <a href='#'>programming</a>
-                    <a href='#'>civil</a>
+                    {tags.map(tag => {
+                        return <a href='#'>{tag}</a>
+                    })}
                 </div>
                 <footer className='post-footer'>
-                    <div><BiCommentDetail />69 comments</div>
+                    <div><BiCommentDetail />{comments} comments</div>
                     <div><BiBookmark />Save</div>
                     <div><BiFlag />Report</div>
                 </footer>

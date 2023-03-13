@@ -121,6 +121,10 @@ a {
   background-color: #F1F2F3;
 }
 
+.create-post-div {
+  padding: 2rem;
+}
+
 
 @media screen and (max-width:980px) {
   .events-main {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useMyContext } from '../context/AppContext'
 import { NotFound } from '../pages'
@@ -33,9 +33,9 @@ const SinglePostPage = () => {
             <header className='post-header post-div'>
                 <h2> {post.title}</h2><br />
                 <div className='post-info'>
-                    <p>Posted At: {post.createdAt}</p>
-                    <p>Modified At: {post.updatedAt}</p>
-                    <p>Posted By: {post.poster}</p>
+                    <p>Posted At: {new Date(post.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
+                    <p>Modified At: {new Date(post.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
+                    <p>Posted By: <Link to={`/profile/${post.postedBy}/`}> {post.poster} </Link></p>
                 </div>
             </header>
             <div className='post-body post-div'>

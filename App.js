@@ -13,6 +13,7 @@ import errorHandlerMiddleware from './middlewares/errorHandler.js'
 import { authenticateUser, authorizePermissions } from "./middlewares/atuh.js";
 
 
+import userRouter from './routes/userRoutes.js'
 import authRouter from './routes/authRoutes.js'
 import postRouter from './routes/postRoutes.js'
 
@@ -24,6 +25,7 @@ app.use(cookieParser(process.env.JWT_SECRET))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/posts', postRouter)
+app.use('/api/v1/users', userRouter)
 
 
 app.use(notFoundMiddleware)

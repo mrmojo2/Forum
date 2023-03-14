@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import { Home, SharedLayout, Profile, Syllabus, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage } from './pages/'
+import { Home, SharedLayout, Syllabus, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage } from './pages/'
+import { Profile, ProfileComments, ProfilePosts, ProfileSaved } from "./pages/Profile";
 
 import './index.css'
 
@@ -14,7 +15,11 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Home />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile/:userId" element={<Profile />} >
+            <Route index element={<ProfilePosts />} />
+            <Route path="comments" element={<ProfileComments />} />
+            <Route path="savedPosts" element={<ProfileSaved />} />
+          </Route>
           <Route path="syllabus" element={<Syllabus />} />
           <Route path="notice" element={<Notice />} />
           <Route path="events" element={<Events />} />

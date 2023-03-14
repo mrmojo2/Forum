@@ -3,8 +3,8 @@ import { useMyContext } from '../context/AppContext'
 import Loading from './Loading'
 import SinglePost from './SinglePost'
 
-const PostsContainer = () => {
-    const { loading, posts } = useMyContext()
+const PostsContainer = ({ posts }) => {
+    const { loading } = useMyContext()
 
     if (loading) {
         return <Loading />

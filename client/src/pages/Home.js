@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { PostsContainer } from '../components'
 import { useMyContext } from '../context/AppContext'
 
 const Home = () => {
-    const { getPosts } = useMyContext()
+    const { posts } = useMyContext()
     const navigate = useNavigate()
-
-    useEffect(() => {
-        getPosts()
-    }, [])
 
     return (
         <Wrapper>
@@ -26,7 +22,7 @@ const Home = () => {
                     <button className='sort-btn'>Year</button>
                 </div>
             </header>
-            <PostsContainer />
+            <PostsContainer posts={posts} />
         </Wrapper>
     )
 }
@@ -71,11 +67,6 @@ const Wrapper = styled.div.attrs({ className: 'home-main' })`
         background:whitesmoke;
     }
 
-    .posts-container{
-        padding:1.5rem;
-        display:grid;
-        grid-gap:1.5rem;
-    }
 
     @media screen and (max-width:645px){
         .heading h4{

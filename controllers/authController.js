@@ -44,7 +44,7 @@ const login = async (req, res) => {
     res.status(StatusCodes.OK).json({ tokenUser })
 }
 
-const getUser = async (req, res) => {
+const getLoginUser = async (req, res) => {
     const user = await User.findOne({ _id: req.user.userId })
     if (!user) {
         return res.status(StatusCodes.BAD_REQUEST)
@@ -62,4 +62,4 @@ const logout = async (req, res) => {
 
 
 
-export { login, register, getUser, logout }
+export { login, register, getLoginUser, logout }

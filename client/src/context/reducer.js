@@ -89,7 +89,13 @@ const reducer = (state, action) => {
             posts: action.payload.posts
         })
     }
-
+    if (action.type === 'get_profile_posts_success') {
+        return ({
+            ...state,
+            loading: false,
+            profilePosts: action.payload.posts
+        })
+    }
     if (action.type === 'create_post_success') {
         return ({
             ...state,

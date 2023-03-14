@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 
+
 .alert {
   display: flex;
   justify-content: center;
@@ -59,6 +60,17 @@ a {
 
 .btn:hover {
   background: #9ff1f7;
+}
+
+.main-btn {
+  transition: none;
+  background: #6692CC;
+  color: white;
+  font-size: 1rem;
+}
+
+.main-btn:hover {
+  background: #6692dD;
 }
 
 .nav-main {
@@ -125,6 +137,11 @@ a {
   padding: 2rem;
 }
 
+.posts-container {
+  padding: 1.5rem;
+  display: grid;
+  grid-gap: 1.5rem;
+}
 
 
 @media screen and (max-width:980px) {
@@ -145,6 +162,10 @@ a {
   .main-div {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
+  }
+
+  .main-btn {
+    font-size: 0.75rem;
   }
 
 }

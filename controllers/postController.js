@@ -1,9 +1,14 @@
 import { StatusCodes } from "http-status-codes"
 import Post from "../models/Post.js"
 import HttpError from '../error/HttpError.js'
+import mongoose from "mongoose"
 
 const getAllPosts = async (req, res) => {
-    const posts = await Post.find({}).select('-body -postedBy -createdAt -updatedAt')
+    let queryObject = {
+        ...req.query
+    }
+    console.log(req.query)
+    const posts = await Post.find(queryObject).select('-body -postedBy -createdAt -updatedAt')
     res.status(200).json({ posts, length: posts.length })
 }
 

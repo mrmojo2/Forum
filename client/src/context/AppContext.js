@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from 'react'
+import React, { useContext, useReducer, useEffect, useCallback } from 'react'
 import reducer from './reducer.js'
 import axios from 'axios'
 
@@ -17,6 +17,7 @@ export const initialState = {
     alertText: '',
     alertType: '',
     posts: [],
+    profilePosts: [],
 }
 
 const AppProvider = ({ children }) => {
@@ -40,7 +41,7 @@ const AppProvider = ({ children }) => {
     const getUser = async () => {
         dispatch({ type: 'SET_USER_LOADING_TRUE' })
         try {
-            const { data } = await axios.get('/api/v1/auth/getUser')
+            const { data } = await axios.get('/api/v1/auth/getLoginUser')
             dispatch({ type: 'GET_USER_SUCCESS', payload: data })
         } catch (error) {
             dispatch({ type: 'SET_USER_LOADING_FALSE' })
@@ -76,11 +77,22 @@ const AppProvider = ({ children }) => {
         }
     }
 
-    const getPosts = async () => {
+    const getPosts = useCallback(async () => {
         dispatch({ type: 'SET_LOADING_TRUE' })
         try {
             const { data } = await axios.get('/api/v1/posts')
             dispatch({ type: 'get_posts_success', payload: data })
+        } catch (error) {
+            console.log(error)
+            //if 401 code then logout user (maybe the token expired!)
+        }
+    })
+
+    const getProfilePosts = async (userId) => {
+        dispatch({ type: 'SET_LOADING_TRUE' })
+        try {
+            const { data } = await axios.get(`/api/v1/posts?postedBy=${userId}`)
+            dispatch({ type: 'get_profile_posts_success', payload: data })
         } catch (error) {
             console.log(error)
             //if 401 code then logout user (maybe the token expired!)
@@ -101,9 +113,17 @@ const AppProvider = ({ children }) => {
     }
 
     const getSinglePost = async (postId) => {
-        dispatch({ type: 'SET_LOADING_TRUE' })
         try {
             const { data } = await axios.get(`/api/v1/posts/${postId}`)
+            return data
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
+    const getProfile = async (userId) => {
+        try {
+            const { data } = await axios.get(`/api/v1/users/${userId}`)
             return data
         } catch (error) {
             console.log(error.response)
@@ -114,7 +134,7 @@ const AppProvider = ({ children }) => {
         getUser()
     }, [])
 
-    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost }}>
+    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile }}>
         {children}
     </AppContext.Provider>
 

@@ -1,5 +1,4 @@
 import Home from './Home.js'
-import Profile from './Profile'
 import Syllabus from './Syllabus'
 import SharedLayout from './SharedLayout'
 import Notice from './Notice'
@@ -13,4 +12,4 @@ import SinglePostPage from './SinglePostPage.js'
 
 
 
-export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage }
+export { Home, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage }

@@ -1,13 +1,19 @@
 import { StatusCodes } from "http-status-codes"
 import Post from "../models/Post.js"
+import HttpError from '../error/HttpError.js'
 
 const getAllPosts = async (req, res) => {
-    const posts = await Post.find({})
+    const posts = await Post.find({}).select('-body -postedBy -createdAt -updatedAt')
     res.status(200).json({ posts, length: posts.length })
 }
 
 const getSinglePost = async (req, res) => {
-    res.send('get single post')
+    const { id: postId } = req.params
+    const post = await Post.findOne({ _id: postId })
+    if (!post) {
+        throw new HttpError('NotFound', 404)
+    }
+    res.status(200).json({ post })
 }
 
 const createPost = async (req, res) => {

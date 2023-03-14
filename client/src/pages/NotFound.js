@@ -7,7 +7,7 @@ const NotFound = () => {
         <Wrapper>
             <div className='main-ctr'>
                 <img src={cat} alt="cat" />
-                <h1>404! Page Not Found</h1>
+                <h1>404! Resource Not Found</h1>
             </div>
         </Wrapper>
     )
@@ -15,8 +15,8 @@ const NotFound = () => {
 
 const Wrapper = styled.main`
     .main-ctr{
-        width:100vw;
-        height: 100vh;
+        width:100%;
+        height: 100%;
         display:flex;
         flex-direction:column;
         justify-content:center;

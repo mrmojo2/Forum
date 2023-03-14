@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import { Home, SharedLayout, Profile, Syllabus, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound } from './pages/'
+import { Home, SharedLayout, Profile, Syllabus, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage } from './pages/'
 
 import './index.css'
 
@@ -19,6 +19,7 @@ function App() {
           <Route path="notice" element={<Notice />} />
           <Route path="events" element={<Events />} />
           <Route path="createPost" element={<CreatePost />} />
+          <Route path="/posts/:id" element={<SinglePostPage />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

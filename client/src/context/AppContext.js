@@ -100,11 +100,21 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    const getSinglePost = async (postId) => {
+        dispatch({ type: 'SET_LOADING_TRUE' })
+        try {
+            const { data } = await axios.get(`/api/v1/posts/${postId}`)
+            return data
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
     useEffect(() => {
         getUser()
     }, [])
 
-    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser }}>
+    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost }}>
         {children}
     </AppContext.Provider>
 

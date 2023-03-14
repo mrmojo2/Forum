@@ -9,6 +9,8 @@ import ProtectedRoute from './ProtectedRoute.js'
 import CreatePost from './CreatePost.js'
 import Register from './Register.js'
 import NotFound from './NotFound.js'
+import SinglePostPage from './SinglePostPage.js'
 
 
-export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound }
+
+export { Home, Profile, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage }

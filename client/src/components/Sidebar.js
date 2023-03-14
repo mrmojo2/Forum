@@ -38,10 +38,10 @@ const Wrapper = styled.div.attrs({ className: 'sidebar-main' })`
         gap:0.5rem;
         font-size:1.25rem;
         color:#6692CC;
-        transition: all 0.2s linear;
+        transition: all 0.1s linear;
     }
     .link-container a:hover{
-        padding-left:1rem;
+        padding-left:0.5rem;
     }
 `
 

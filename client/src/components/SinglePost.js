@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { RxThickArrowUp, RxThickArrowDown } from 'react-icons/rx'
 import { BiCommentDetail, BiBookmark, BiFlag } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 
-const SinglePost = ({ title, upvotes, comments, tags }) => {
+const SinglePost = ({ title, upvotes, comments, tags, _id }) => {
     return (
         <Wrapper>
             <div className='upvotes'>
@@ -12,8 +13,10 @@ const SinglePost = ({ title, upvotes, comments, tags }) => {
                 <button className='upvote-btn downvote'><RxThickArrowDown /></button>
             </div>
             <div className='post-main'>
-                <header>
-                    <h3 className='post-header'>{title}</h3>
+                <header className='h'>
+                    <Link to={`/posts/${_id}`}>
+                        <h3 className='post-header'>{title}</h3>
+                    </Link>
                 </header>
                 <div className='tags'>
                     {tags.map((tag, i) => {
@@ -60,9 +63,15 @@ const Wrapper = styled.article.attrs({ className: "single-post" })`
         grid-template-rows:2fr 1fr 1fr;
         grid-gap:0.5rem;
     }
+
+    .h>a:hover{
+        text-decoration:underline;
+    }
+
     .post-header{
         font-weight:400;
         font-size:1.25rem;
+        color:black;
     }
     .tags{
         display:flex;

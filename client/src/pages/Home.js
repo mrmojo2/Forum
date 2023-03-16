@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { PostsContainer } from '../components'
 import { useMyContext } from '../context/AppContext'
+import { AiOutlineReload } from 'react-icons/ai'
 
 const Home = () => {
-    const { posts } = useMyContext()
+    const { posts, getPosts } = useMyContext()
     const navigate = useNavigate()
 
     return (
@@ -22,6 +23,9 @@ const Home = () => {
                     <button className='sort-btn'>Year</button>
                 </div>
             </header>
+            <div className='refresh-div'>
+                <button className='btn main-btn refresh-btn' onClick={getPosts}><AiOutlineReload />refresh</button>
+            </div>
             <PostsContainer posts={posts} />
         </Wrapper>
     )
@@ -67,6 +71,18 @@ const Wrapper = styled.div.attrs({ className: 'home-main' })`
         background:whitesmoke;
     }
 
+    .refresh-div{
+        display:flex;
+        justify-content:center;
+        margin-top:1rem;
+    }
+
+    .refresh-btn{
+        border-radius:10px;
+        display:flex;
+        align-items:center;
+        gap:0.5rem;
+    }
 
     @media screen and (max-width:645px){
         .heading h4{

@@ -73,6 +73,10 @@ a {
   background: #6692dD;
 }
 
+.discard-btn {
+  background: #E01B22;
+}
+
 .nav-main {
   background: whitesmoke;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
@@ -143,6 +147,9 @@ a {
   grid-gap: 1.5rem;
 }
 
+.edit-profile-main {
+  padding: 2rem;
+}
 
 @media screen and (max-width:980px) {
   .events-main {

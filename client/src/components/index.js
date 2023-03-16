@@ -7,8 +7,9 @@ import SinglePost from "./SinglePost";
 import Loading from './Loading'
 import Alert from "./Alert";
 import PostsContainer from "./PostsContainer";
-
+import EditProfileForm from "./EditProfileForm";
 
 export {
-    Navbar, Logo, Sidebar, Eventsbar, Minibar, SinglePost, Loading, Alert, PostsContainer
+    Navbar, Logo, Sidebar, Eventsbar, Minibar, SinglePost, Loading, Alert, PostsContainer, EditProfileForm
+
 }

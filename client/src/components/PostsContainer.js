@@ -10,6 +10,10 @@ const PostsContainer = ({ posts }) => {
         return <Loading />
     }
 
+    if (posts.length === 0) {
+        return <h2>No posts to display</h2>
+    }
+
     return (
         <div className='posts-container'>
             {posts.map((post, i) => {

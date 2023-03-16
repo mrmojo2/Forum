@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect, useCallback } from 'react'
+import React, { useContext, useReducer, useEffect } from 'react'
 import reducer from './reducer.js'
 import axios from 'axios'
 
@@ -17,7 +17,9 @@ export const initialState = {
     alertText: '',
     alertType: '',
     posts: [],
+    profile: {},
     profilePosts: [],
+
 }
 
 const AppProvider = ({ children }) => {
@@ -77,7 +79,7 @@ const AppProvider = ({ children }) => {
         }
     }
 
-    const getPosts = useCallback(async () => {
+    const getPosts = async () => {
         dispatch({ type: 'SET_LOADING_TRUE' })
         try {
             const { data } = await axios.get('/api/v1/posts')
@@ -86,18 +88,8 @@ const AppProvider = ({ children }) => {
             console.log(error)
             //if 401 code then logout user (maybe the token expired!)
         }
-    })
-
-    const getProfilePosts = async (userId) => {
-        dispatch({ type: 'SET_LOADING_TRUE' })
-        try {
-            const { data } = await axios.get(`/api/v1/posts?postedBy=${userId}`)
-            dispatch({ type: 'get_profile_posts_success', payload: data })
-        } catch (error) {
-            console.log(error)
-            //if 401 code then logout user (maybe the token expired!)
-        }
     }
+
 
     const createPost = async (postData) => {
         dispatch({ type: 'SET_LOADING_TRUE' })
@@ -121,20 +113,61 @@ const AppProvider = ({ children }) => {
         }
     }
 
-    const getProfile = async (userId) => {
+    const getProfilePosts = async (userId) => {
+        dispatch({ type: 'SET_LOADING_TRUE' })
         try {
-            const { data } = await axios.get(`/api/v1/users/${userId}`)
-            return data
+            const { data } = await axios.get(`/api/v1/posts?postedBy=${userId}`)
+            dispatch({ type: 'get_profile_posts_success', payload: data })
         } catch (error) {
+            console.log(error)
+            dispatch({ type: 'SET_LOADING_FALSE' })
+            //if 401 code then logout user (maybe the token expired!)
+        }
+    }
+
+    const getProfile = async (userId) => {
+        dispatch({ type: 'SET_LOADING_TRUE' })
+        try {
+
+            const result = await Promise.all([
+                axios.get(`/api/v1/users/${userId}`),
+                axios.get(`/api/v1/posts?postedBy=${userId}`)
+            ])
+            const { data: profile } = result[0]
+            const { data: posts } = result[1]
+            console.log(posts)
+            dispatch({ type: 'get_profile_success', payload: { profile, posts } })
+        } catch (error) {
+            //find if error is 404 , 500, 400 (cookie expired) and handle accordingly
+            dispatch({ type: 'SET_LOADING_FALSE' })
             console.log(error.response)
         }
     }
+
+    const updateProfile = async (img = null, name, bio, faculty) => {
+        dispatch({ type: 'SET_LOADING_TRUE' })
+        try {
+            let profileformData = new FormData()
+            img && profileformData.append("img", img)
+            profileformData.append("name", name)
+            profileformData.append("bio", bio)
+            profileformData.append("faculty", faculty)
+
+            const { data } = await axios.patch(`/api/v1/users/${state.user.userId}`, profileformData)
+            dispatch({ type: 'update_profile_success', payload: data })
+            clearAlert()
+        } catch (error) {
+            dispatch({ type: 'update_profile_fail', payload: error.response.data })
+            clearAlert()
+        }
+    }
+
 
     useEffect(() => {
         getUser()
     }, [])
 
-    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile }}>
+    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile, updateProfile }}>
         {children}
     </AppContext.Provider>
 

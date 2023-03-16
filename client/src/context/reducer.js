@@ -37,6 +37,12 @@ const reducer = (state, action) => {
             loading: true
         })
     }
+    if (action.type === 'SET_LOADING_FALSE') {
+        return ({
+            ...state,
+            loading: false
+        })
+    }
 
     if (action.type === 'CLEAR_ALERT') {
         return ({
@@ -89,13 +95,7 @@ const reducer = (state, action) => {
             posts: action.payload.posts
         })
     }
-    if (action.type === 'get_profile_posts_success') {
-        return ({
-            ...state,
-            loading: false,
-            profilePosts: action.payload.posts
-        })
-    }
+
     if (action.type === 'create_post_success') {
         return ({
             ...state,
@@ -114,6 +114,37 @@ const reducer = (state, action) => {
             alertType: 'danger'
         })
     }
+    if (action.type === 'get_profile_success') {
+        return ({
+            ...state,
+            loading: false,
+            profile: action.payload.profile.profile,
+            profilePosts: action.payload.posts.posts,
+        })
+    }
+
+    if (action.type === 'update_profile_success') {
+        return ({
+            ...state,
+            loading: false,
+            user: action.payload.tokenUser,
+            profile: action.payload.user,
+            showAlert: true,
+            alertText: 'profile successfully updated',
+            alertType: 'success',
+        })
+    }
+
+    if (action.type === 'update_profile_fail') {
+        return ({
+            ...state,
+            loading: false,
+            showAlert: true,
+            alertText: action.payload.msg,
+            alertType: 'danger'
+        })
+    }
+
 
     throw new Error('action milena sathi !' + action.type)
 }

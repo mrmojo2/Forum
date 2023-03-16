@@ -19,6 +19,14 @@ const UserSchema = new mongoose.Schema({
         },
         unique: true,
     },
+    profile_pic: {
+        type: String,
+        default: 'https://res.cloudinary.com/ducxipxkt/image/upload/v1678879846/IOE_Forum/profile_pics/protikbruh_uvqm30.jpg',
+    },
+    bio: {
+        type: String,
+        maxLength: 300,
+    },
     password: {
         type: String,
         required: [true, 'please provide password'],

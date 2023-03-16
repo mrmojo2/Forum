@@ -1,12 +1,11 @@
 import { StatusCodes } from "http-status-codes"
 import Post from "../models/Post.js"
 import HttpError from '../error/HttpError.js'
-import mongoose from "mongoose"
 
 const getAllPosts = async (req, res) => {
-    let queryObject = {
-        ...req.query
-    }
+    let queryObject = {}
+    req.query?.postedBy && (queryObject['postedBy.id'] = req.query.postedBy)
+
     console.log(req.query)
     const posts = await Post.find(queryObject).select('-body -postedBy -createdAt -updatedAt')
     res.status(200).json({ posts, length: posts.length })
@@ -23,7 +22,7 @@ const getSinglePost = async (req, res) => {
 
 const createPost = async (req, res) => {
     const { title, body, tags } = req.body
-    const post = await Post.create({ title, body, postedBy: req.user.userId, tags })
+    const post = await Post.create({ title, body, postedBy: { id: req.user.userId, name: req.user.name }, tags })
     res.status(StatusCodes.CREATED).json({ msg: 'post created', post })
 }
 

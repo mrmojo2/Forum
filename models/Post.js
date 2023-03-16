@@ -24,18 +24,18 @@ const PostSchema = new mongoose.Schema({
         required: [true, 'please provide some tags']
     },
     postedBy: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        required: [true, 'please provide user']
+        id: {
+            type: mongoose.Types.ObjectId,
+            ref: 'User',
+            required: [true, 'please provide user']
+        },
+        name: {
+            type: String,
+        }
     },
     poster: {
         type: String,
     }
 }, { timestamps: true })
-
-PostSchema.pre('save', async function () {
-    const poster = await this.model('User').findOne({ _id: this.postedBy })
-    this.poster = poster.name
-})
 
 export default mongoose.model('Post', PostSchema)

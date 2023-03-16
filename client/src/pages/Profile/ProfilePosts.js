@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { PostsContainer } from '../../components'
+import { Loading, PostsContainer } from '../../components'
 import { useMyContext } from '../../context/AppContext'
 
 const ProfilePosts = () => {
-    const { getProfilePosts, profilePosts } = useMyContext()
-    const params = useParams()
-    useEffect(() => {
-        getProfilePosts(params.userId)
-    }, [])
+    const { profilePosts, loading } = useMyContext()
 
     return (
         <PostsContainer posts={profilePosts} />

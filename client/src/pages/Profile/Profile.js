@@ -1,43 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useMyContext } from '../../context/AppContext'
-import default_img from '../../assets/hqdefault.jpg'
-import { NavLink, Outlet, useParams } from 'react-router-dom'
-import NotFound from '../NotFound'
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-const Profile = () => {
-    const { logout, user, getProfile } = useMyContext()
+import { MdSchool, MdOutlineCalendarMonth } from 'react-icons/md'
+import { Loading } from '../../components'
+
+const ProfileHead = () => {
+    const { user, loading, profile } = useMyContext()
+    const navigate = useNavigate()
     const params = useParams()
 
-    const [profile, setProfile] = useState({})
-    const [profileError, setProfileError] = useState(false)
-
-    useEffect(() => {
-        getProfile(params.userId)
-            .then(foo => setProfile(foo.profile))
-            .catch(err => setProfileError(true))
-    })
-
-    if (profileError) {
-        return <NotFound />
+    if (loading) {
+        //we don't need two loadings! (one is in PostsContainer)
+        return <></>
     }
 
     return (
-        <Wrapper>
-            <div className='profile-info'>
-                <div className='profile-pic-div'>
-                    <img src={default_img} alt="user" className='profile-pic' />
-                    {params.userId === user.userId && <button className='btn main-btn'>Edit Profile</button>}
-                </div>
-                <h3>{profile.name}</h3><br />
-                <p>{profile?.bio || 'this user doesn\'t have a bio...lame'}</p>
-                <br />
-                <div className='profile-links'>
-                    <NavLink to={`/profile/${params.userId}/`}>Posts</NavLink>
-                    <NavLink to='comments' >Comments</NavLink>
-                    <NavLink to='savedPosts'>Saved</NavLink>
-                </div>
+        <div className='profile-info'>
+            <div className='profile-pic-div'>
+                <img src={profile.profile_pic} alt="user" className='profile-pic' />
+                {params.userId === user.userId && <button className='btn main-btn' onClick={() => navigate('/editProfile')}>Edit Profile</button>}
             </div>
+            <h3>{profile?.name}</h3>
+            <br />
+            <div className='more-info'>
+                <p><MdOutlineCalendarMonth />joined: {new Date(profile?.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
+                <p><MdSchool />faculty: {profile?.faculty}</p>
+            </div><br />
+            <p>{profile?.bio || 'this user doesn\'t have a bio...lame'}</p>
+            <br />
+            <div className='profile-links'>
+                <NavLink to={`/profile/${params.userId}/`}>Posts</NavLink>
+                <NavLink to='comments' >Comments</NavLink>
+                <NavLink to='savedPosts'>Saved</NavLink>
+            </div>
+        </div>
+    )
+}
+
+
+const Profile = () => {
+    const { logout, getProfile } = useMyContext()
+    const params = useParams()
+    const location = useLocation()
+
+    //with this approach getProfile() is sent even when going to comments or saved as the location changes
+    useEffect(() => {
+        getProfile(params.userId)
+    }, [location])
+
+    return (
+        <Wrapper>
+            <ProfileHead />
             <Outlet />
             <button className='btn main-btn' onClick={logout}>logout</button>
         </Wrapper>
@@ -49,7 +64,11 @@ const Wrapper = styled.div.attrs({ className: 'profile-main' })`
         padding:1.5rem;
         padding-bottom:0;
         border-bottom:2px solid rgba(0, 0, 0, 0.1);
+    }
 
+    .profile-info>h3{
+        font-weight:500;
+        font-size:1.25rem;
     }
 
     .profile-pic-div{
@@ -64,6 +83,14 @@ const Wrapper = styled.div.attrs({ className: 'profile-main' })`
         border-radius:50%;
         object-fit:cover;
     }
+
+    .profile-name{
+        display:flex;
+        align-items:center;
+        gap:0.5rem;
+    }
+
+
     .profile-links{
         display:flex;
         gap: 2rem;
@@ -80,6 +107,21 @@ const Wrapper = styled.div.attrs({ className: 'profile-main' })`
 
     .profile-body{
         padding:1.5rem;
+    }
+
+    .more-info{
+        display:flex;
+        gap:0.95rem;
+        text-transform:capitalize;
+    }
+    .more-info>p{
+        color:rgba(0, 0, 0, 0.8);
+        display:flex;
+        align-items:center;
+        gap:0.45rem;
+    }
+    .more-info svg{
+        font-size:1.25rem;
     }
 
 `

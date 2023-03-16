@@ -33,9 +33,9 @@ const SinglePostPage = () => {
             <header className='post-header post-div'>
                 <h2> {post.title}</h2><br />
                 <div className='post-info'>
-                    <p>Posted At: {new Date(post.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
-                    <p>Modified At: {new Date(post.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
-                    <p>Posted By: <Link to={`/profile/${post.postedBy}/`}> {post.poster} </Link></p>
+                    <p>Posted At: {new Date(post?.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
+                    <p>Modified At: {new Date(post?.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
+                    <p>Posted By: <Link to={`/profile/${post?.postedBy?.id}/`}> {post?.postedBy?.name} </Link></p>
                 </div>
             </header>
             <div className='post-body post-div'>

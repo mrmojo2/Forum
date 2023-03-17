@@ -11,10 +11,6 @@ const ProfileHead = () => {
     const navigate = useNavigate()
     const params = useParams()
 
-    if (loading) {
-        //we don't need two loadings! (one is in PostsContainer)
-        return <></>
-    }
 
     return (
         <div className='profile-info'>
@@ -41,7 +37,7 @@ const ProfileHead = () => {
 
 
 const Profile = () => {
-    const { logout, getProfile } = useMyContext()
+    const { logout, getProfile, user } = useMyContext()
     const params = useParams()
     const location = useLocation()
 
@@ -54,7 +50,7 @@ const Profile = () => {
         <Wrapper>
             <ProfileHead />
             <Outlet />
-            <button className='btn main-btn' onClick={logout}>logout</button>
+            {params.userId === user.userId && <button className='btn main-btn' onClick={logout}>logout</button>}
         </Wrapper>
     )
 }

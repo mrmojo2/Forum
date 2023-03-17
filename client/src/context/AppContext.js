@@ -162,12 +162,21 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    const deletePost = async (postId) => {
+        try {
+            await axios.delete(`/api/v1/posts/${postId}`)
+            getPosts()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     useEffect(() => {
         getUser()
     }, [])
 
-    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile, updateProfile }}>
+    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile, updateProfile, deletePost }}>
         {children}
     </AppContext.Provider>
 

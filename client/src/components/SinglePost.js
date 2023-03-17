@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { RxThickArrowUp, RxThickArrowDown } from 'react-icons/rx'
-import { BiCommentDetail, BiBookmark, BiFlag } from 'react-icons/bi'
+import { BiCommentDetail, BiBookmark, BiFlag, BiDotsVerticalRounded } from 'react-icons/bi'
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { useMyContext } from '../context/AppContext'
 
-const SinglePost = ({ title, upvotes, comments, tags, _id }) => {
+
+
+
+
+const SinglePost = ({ title, upvotes, comments, tags, _id, postedBy }) => {
+    const [toggle, setToggle] = useState(false)
+    const { user, deletePost } = useMyContext()
+
+    const handleDelete = e => {
+        deletePost(_id)
+    }
+
     return (
         <Wrapper>
             <div className='upvotes'>
@@ -17,6 +30,18 @@ const SinglePost = ({ title, upvotes, comments, tags, _id }) => {
                     <Link to={`/posts/${_id}`}>
                         <h3 className='post-header'>{title}</h3>
                     </Link>
+                    {
+                        (user.userId === postedBy.id || user.role === 'admin') &&
+                        <button onClick={() => setToggle(!toggle)}>
+                            <BiDotsVerticalRounded />
+                        </button>
+                    }
+                    <div className={toggle ? 'post-options show-post-options' : 'post-options'}>
+                        <ul>
+                            <li><button><AiOutlineEdit />update post</button></li><br />
+                            <li><button onClick={handleDelete}><AiOutlineDelete />delete post</button></li>
+                        </ul>
+                    </div>
                 </header>
                 <div className='tags'>
                     {tags.map((tag, i) => {
@@ -59,9 +84,24 @@ const Wrapper = styled.article.attrs({ className: "single-post" })`
     .post-main{
         background:whitesmoke;
         padding:1rem 0;
+        padding-right:1rem;
         display:grid;
         grid-template-rows:2fr 1fr 1fr;
         grid-gap:0.5rem;
+    }
+    .h{
+        display:flex;
+        justify-content:space-between;
+        position:relative
+    }
+    .h button{
+        background:transparent;
+        border:none;
+    }
+    .h svg{
+        font-size:1.5rem;
+        cursor:pointer;
+
     }
 
     .h>a:hover{
@@ -100,6 +140,33 @@ const Wrapper = styled.article.attrs({ className: "single-post" })`
     .post-footer>div>svg{
         font-size:1.5rem;
     }
+
+    .post-options{
+        position:absolute;
+        width:120px;
+        height:100px;
+        background:white;
+        /* width of the  bars icon */
+        right:24px;
+        border-radius:5px;
+        padding:0.5rem;
+        transition: all 0.3s linear;
+        display:none
+    }
+
+    .show-post-options{
+        display:block;
+    }
+
+    .post-options button{
+        text-transform:capitalize;
+        color: rgba(0,0,0,0.6);
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        gap:0.25rem;
+    }
+
 
     @media screen and (max-width:640px){
         .post-header{

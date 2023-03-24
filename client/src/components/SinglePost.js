@@ -92,7 +92,7 @@ const Wrapper = styled.article.attrs({ className: "single-post" })`
     .h{
         display:flex;
         justify-content:space-between;
-        position:relative
+        position:relative;
     }
     .h button{
         background:transparent;
@@ -146,8 +146,8 @@ const Wrapper = styled.article.attrs({ className: "single-post" })`
         width:120px;
         height:100px;
         background:white;
-        /* width of the  bars icon */
-        right:24px;
+        /* width of the bars icon*/
+        right:calc(24px);
         border-radius:5px;
         padding:0.5rem;
         transition: all 0.3s linear;
@@ -187,6 +187,10 @@ const Wrapper = styled.article.attrs({ className: "single-post" })`
         .post-footer>div>svg{
             font-size:1.25rem;
         }
+    }
+
+    @media screen and (min-wdth:980px){
+        
     }
 `
 

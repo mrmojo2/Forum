@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useMyContext } from '../../context/AppContext'
 import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-import { MdSchool, MdOutlineCalendarMonth } from 'react-icons/md'
+import { MdSchool, MdOutlineCalendarMonth, MdVerified } from 'react-icons/md'
 import { Loading } from '../../components'
 
 const ProfileHead = () => {
@@ -15,10 +15,10 @@ const ProfileHead = () => {
     return (
         <div className='profile-info'>
             <div className='profile-pic-div'>
-                <img src={profile.profile_pic} alt="user" className='profile-pic' />
+                <img src={profile.profile_pic} alt="" className='profile-pic' />
                 {params.userId === user.userId && <button className='btn main-btn' onClick={() => navigate('/editProfile')}>Edit Profile</button>}
             </div>
-            <h3>{profile?.name}</h3>
+            <h3 className='profile-name'>{profile?.name} { profile?.role === "admin" && <MdVerified/>}</h3>
             <br />
             <div className='more-info'>
                 <p><MdOutlineCalendarMonth />joined: {new Date(profile?.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
@@ -118,6 +118,15 @@ const Wrapper = styled.div.attrs({ className: 'profile-main' })`
     }
     .more-info svg{
         font-size:1.25rem;
+    }
+
+    .profile-name{
+        display:flex;
+        align-items:center;
+    }
+
+    .profile-name svg{
+        color:#1D9BF0;
     }
 
 `

@@ -11,9 +11,9 @@ const SharedLayout = () => {
     return (
         <>
             <Navbar />
+            <Minibar />
             <div className="main-div">
                 <Sidebar />
-                <Minibar />
                 <Outlet />
                 <Eventsbar />
             </div>

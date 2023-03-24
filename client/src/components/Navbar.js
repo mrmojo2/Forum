@@ -8,7 +8,7 @@ import { FaBars } from 'react-icons/fa'
 import { useMyContext } from '../context/AppContext'
 
 const Navbar = () => {
-    const { toggleMinibar } = useMyContext()
+    const { toggleMinibar,user } = useMyContext()
     return (
         <Wrapper>
             <div className="nav-center">
@@ -24,7 +24,7 @@ const Navbar = () => {
                     {/* <button className='btn login-btn'>Log in</button>
                     <button className='btn '>sign up</button> */}
 
-                    <BiUserCircle />
+                    <img src={user.profile_pic}/>
                     <MdNotificationsActive />
                     <BsFillChatDotsFill />
                 </div>
@@ -86,6 +86,12 @@ const Wrapper = styled.div.attrs({ className: 'nav-main' })`
         padding:1rem;
         font-size:1.75rem;
         color:#6692CC;
+    }
+    .user-btns>img{
+        width:30px;
+        height:30px;
+        object-fit:cover;
+        border-radius:50%;
     }
 
     .minibar-toggle{

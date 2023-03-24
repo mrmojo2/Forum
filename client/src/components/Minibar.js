@@ -6,7 +6,7 @@ import { useMyContext } from '../context/AppContext'
 
 const Minibar = () => {
 
-    const { toggle, user } = useMyContext()
+    const { toggle, user, toggleMinibar } = useMyContext()
     return (
         <aside className={toggle ? 'show-minibar minibar-main' : 'minibar-main'}>
             <Wrapper>
@@ -14,7 +14,7 @@ const Minibar = () => {
                     {linkList.map(link => {
                         const { id, url, icon, text } = link
                         return (
-                            <li key={id} className='minibar-list'>
+                            <li key={id} className='minibar-list' onClick={toggleMinibar}>
                                 <NavLink to={url === 'profile' ? `profile/${user?.userId}` : url} style={({ isActive }) => { return { color: isActive ? "#EA6267" : "#6692CC" } }} className='minibar-nav-link'>{icon} {text}</NavLink>
                             </li>
                         )

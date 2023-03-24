@@ -49,7 +49,7 @@ const getLoginUser = async (req, res) => {
     if (!user) {
         return res.status(StatusCodes.BAD_REQUEST)
     }
-    res.status(200).json(req.user)
+    res.status(200).json({...req.user,profile_pic:user.profile_pic})
 }
 
 const logout = async (req, res) => {

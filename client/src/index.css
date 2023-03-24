@@ -83,6 +83,7 @@ a {
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   position: sticky;
   top: 0px;
+  z-index: 999;
 }
 
 .main-div {
@@ -92,6 +93,7 @@ a {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 160px 1fr 300px;
+  position: relative;
 }
 
 .sidebar-main {
@@ -105,11 +107,14 @@ a {
 
 .minibar-main {
   display: flex;
-  align-items: center;
   justify-content: center;
   display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100%;
   transition: all 0.2s linear;
-  background: whitesmoke;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
 }
 
 .show-minibar {
@@ -118,6 +123,10 @@ a {
 
 .minibar-center {
   margin-top: 1rem;
+  background: white;
+  width: 95vw;
+  height:700px;
+  position:fixed;
 }
 
 

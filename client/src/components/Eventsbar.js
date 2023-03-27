@@ -1,23 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useMyContext } from '../context/AppContext'
 
 const Eventsbar = () => {
+    const { notice } = useMyContext()
     return (
         <Wrapper>
             <div className="sidebox events">
-                <h4 className='heading event-heading'>Upcoming Events</h4>
+                <h4 className='heading event-heading'>Notice</h4>
                 <ul className='list'>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Hackathon</a></li>
-                    <li><a href="#">Hackathon</a></li>
+                    {
+                        notice.map(n => {
+                            return (
+                                <li><a href={n.link} target="_blank" rel="noopener noreferrer">{n.heading}</a></li>
+                            )
+                        })
+                    }
                 </ul>
             </div>
             <div className="sidebox notice">
-                <h4 className='heading notice-heading'>Notice</h4>
+                <h4 className='heading notice-heading'>Upcoming Events</h4>
                 <ul className='list'>
                     <li><a href="#">Notice</a></li>
                     <li><a href="#">Notice</a></li>
@@ -71,6 +73,13 @@ const Wrapper = styled.div.attrs({ className: 'events-main' })`
     .list{
         padding:0.5rem;
         margin-bottom:1rem;
+        display:flex;
+        flex-direction:column;
+        gap:0.75rem;
+    }
+    .list a{
+        font-size:0.85rem;
+        color:rgba(0, 0, 0, 0.6);
     }
 `
 

@@ -1,7 +1,9 @@
 import User from "../models/User.js"
 import { StatusCodes } from "http-status-codes"
 import HttpError from '../error/HttpError.js'
-import { attachCookieToResponse } from "../utils/jwt.js"
+import { attachCookieToResponse, readNoticeFile } from "../utils/index.js"
+
+let notice = await readNoticeFile()
 
 const register = async (req, res) => {
     const { email, name, password, faculty } = req.body
@@ -19,7 +21,7 @@ const register = async (req, res) => {
 
     attachCookieToResponse({ res, user: tokenUser })
 
-    res.status(StatusCodes.CREATED).json({ tokenUser })
+    res.status(StatusCodes.CREATED).json({ tokenUser, notice })
 }
 
 const login = async (req, res) => {
@@ -41,7 +43,7 @@ const login = async (req, res) => {
     const tokenUser = { name: user.name, role: user.role, userId: user._id, profile_pic: user.profile_pic }
     attachCookieToResponse({ res, user: tokenUser })
 
-    res.status(StatusCodes.OK).json({ tokenUser })
+    res.status(StatusCodes.OK).json({ tokenUser, notice })
 }
 
 const getLoginUser = async (req, res) => {
@@ -49,7 +51,7 @@ const getLoginUser = async (req, res) => {
     if (!user) {
         return res.status(StatusCodes.BAD_REQUEST)
     }
-    res.status(200).json({ ...req.user, profile_pic: user.profile_pic })
+    res.status(200).json({ tokenUser: { ...req.user, profile_pic: user.profile_pic }, notice })
 }
 
 const logout = async (req, res) => {

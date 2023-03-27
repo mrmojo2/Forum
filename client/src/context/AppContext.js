@@ -19,7 +19,7 @@ export const initialState = {
     posts: [],
     profile: {},
     profilePosts: [],
-
+    notice: [],
 }
 
 const AppProvider = ({ children }) => {

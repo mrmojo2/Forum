@@ -58,7 +58,8 @@ const reducer = (state, action) => {
         return ({
             ...state,
             userLoading: false,
-            user: action.payload
+            user: action.payload.tokenUser,
+            notice: action.payload.notice
         })
     }
 
@@ -68,6 +69,7 @@ const reducer = (state, action) => {
             ...state,
             loading: false,
             user: action.payload.tokenUser,
+            notice: action.payload.notice
         })
     }
 

@@ -9,6 +9,7 @@ import { v2 as cloudinary } from 'cloudinary'
 import fileUpload from 'express-fileupload'
 
 import connectDB from './db/connect.js'
+import getNotice from './utils/getNotice.js'
 
 import notFoundMiddleware from './middlewares/notFound.js'
 import errorHandlerMiddleware from './middlewares/errorHandler.js'
@@ -53,4 +54,5 @@ const start = async () => {
     }
 }
 
+getNotice()
 start()

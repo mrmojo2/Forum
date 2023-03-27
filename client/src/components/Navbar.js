@@ -6,9 +6,10 @@ import { MdNotificationsActive } from 'react-icons/md'
 import { BiUserCircle } from 'react-icons/bi'
 import { FaBars } from 'react-icons/fa'
 import { useMyContext } from '../context/AppContext'
+import Loading from './Loading'
 
 const Navbar = () => {
-    const { toggleMinibar,user } = useMyContext()
+    const { toggleMinibar,user,userLoading } = useMyContext()
     return (
         <Wrapper>
             <div className="nav-center">
@@ -24,7 +25,8 @@ const Navbar = () => {
                     {/* <button className='btn login-btn'>Log in</button>
                     <button className='btn '>sign up</button> */}
 
-                    <img src={user.profile_pic}/>
+                    {/* <img src={user.profile_pic}/> */}
+                    {userLoading ? <Loading/>:<img src={user.profile_pic}/>}
                     <MdNotificationsActive />
                     <BsFillChatDotsFill />
                 </div>
@@ -86,6 +88,11 @@ const Wrapper = styled.div.attrs({ className: 'nav-main' })`
         padding:1rem;
         font-size:1.75rem;
         color:#6692CC;
+    }
+
+    .user-btns>.loading{
+        width:30px;
+        height:30px;
     }
     .user-btns>img{
         width:30px;

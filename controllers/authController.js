@@ -15,7 +15,7 @@ const register = async (req, res) => {
         throw new HttpError('User with that email already exists!', StatusCodes.BAD_REQUEST)
     }
     const user = await User.create({ email, name, password, faculty })
-    const tokenUser = { name: user.name, role: user.role, userId: user._id }
+    const tokenUser = { name: user.name, role: user.role, userId: user._id, profile_pic: user.profile_pic }
 
     attachCookieToResponse({ res, user: tokenUser })
 
@@ -38,7 +38,7 @@ const login = async (req, res) => {
         throw new HttpError('invalid email or password', StatusCodes.BAD_REQUEST)
     }
 
-    const tokenUser = { name: user.name, role: user.role, userId: user._id }
+    const tokenUser = { name: user.name, role: user.role, userId: user._id, profile_pic: user.profile_pic }
     attachCookieToResponse({ res, user: tokenUser })
 
     res.status(StatusCodes.OK).json({ tokenUser })
@@ -49,7 +49,7 @@ const getLoginUser = async (req, res) => {
     if (!user) {
         return res.status(StatusCodes.BAD_REQUEST)
     }
-    res.status(200).json({...req.user,profile_pic:user.profile_pic})
+    res.status(200).json({ ...req.user, profile_pic: user.profile_pic })
 }
 
 const logout = async (req, res) => {

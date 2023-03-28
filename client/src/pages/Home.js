@@ -24,7 +24,7 @@ const Home = () => {
                 </div>
             </header>
             <div className='refresh-div'>
-                <button className='btn main-btn refresh-btn' onClick={getPosts}><AiOutlineReload />refresh</button>
+                <button className='btn main-btn refresh-btn' onClick={() => getPosts()}><AiOutlineReload />refresh</button>
             </div>
             <PostsContainer posts={posts} />
         </Wrapper>

@@ -54,5 +54,5 @@ const start = async () => {
     }
 }
 
-getNotice()
+// getNotice()
 start()

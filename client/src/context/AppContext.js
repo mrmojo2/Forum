@@ -20,6 +20,7 @@ export const initialState = {
     profile: {},
     profilePosts: [],
     notice: [],
+    searchResults: [],
 }
 
 const AppProvider = ({ children }) => {
@@ -171,12 +172,28 @@ const AppProvider = ({ children }) => {
         }
     }
 
+    const searchPosts = async (query) => {
+        let url = '/api/v1/posts?'
+        Object.keys(query).forEach(key => {
+            url = url + `${key}=${query[key]}&`
+        })
+        dispatch({ type: 'SET_LOADING_TRUE' })
+        try {
+            const { data } = await axios.get(url)
+            dispatch({ type: 'search_success', payload: data })
+        } catch (error) {
+            dispatch({ type: 'SET_LOADING_FALSE' })
+            console.log(error.response)
+            //if 401 code then logout user (maybe the token expired!)
+        }
+    }
+
 
     useEffect(() => {
         getUser()
     }, [])
 
-    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile, updateProfile, deletePost }}>
+    return <AppContext.Provider value={{ ...state, toggleMinibar, displayAlert, loginUser, logout, getPosts, createPost, registerUser, getSinglePost, getProfilePosts, getProfile, updateProfile, deletePost, searchPosts }}>
         {children}
     </AppContext.Provider>
 

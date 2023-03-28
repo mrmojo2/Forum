@@ -6,8 +6,9 @@ import checkPermission from "../utils/checkPermissions.js"
 const getAllPosts = async (req, res) => {
     let queryObject = {}
     req.query?.postedBy && (queryObject['postedBy.id'] = req.query.postedBy)
+    req.query?.search && (queryObject["$or"] = [{ "title": { "$regex": req.query.search, '$options': 'i' } }, { "body": { "$regex": req.query.search, '$options': 'i' } }])
 
-    console.log(req.query)
+    console.log(queryObject)
     const posts = await Post.find(queryObject).select('-body -createdAt -updatedAt')
     res.status(200).json({ posts, length: posts.length })
 }

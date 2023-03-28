@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { Loading } from '../components'
 import { useMyContext } from '../context/AppContext'
 import { NotFound } from '../pages'
 
 const SinglePostPage = () => {
-    const { getSinglePost } = useMyContext()
+    const { getSinglePost, loading } = useMyContext()
     const params = useParams()
 
     const [post, setPost] = useState({})
     const [postError, setPostError] = useState(false)
+
+
 
     useEffect(() => {
         getSinglePost(params.id)
@@ -20,6 +23,10 @@ const SinglePostPage = () => {
                 setPostError(true)
             })
     }, [])
+
+    if (loading) {
+        return <Loading />
+    }
 
     if (postError) {
         return (

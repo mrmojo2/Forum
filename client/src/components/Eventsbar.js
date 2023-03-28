@@ -10,9 +10,9 @@ const Eventsbar = () => {
                 <h4 className='heading event-heading'>Notice</h4>
                 <ul className='list'>
                     {
-                        notice.map(n => {
+                        notice.map((n, i) => {
                             return (
-                                <li><a href={n.link} target="_blank" rel="noopener noreferrer">{n.heading}</a></li>
+                                <li key={i}><a href={n.link} target="_blank" rel="noopener noreferrer">{n.heading}</a></li>
                             )
                         })
                     }

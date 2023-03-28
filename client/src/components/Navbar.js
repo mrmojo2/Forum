@@ -1,15 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Logo from './Logo'
 import { BsSearch, BsFillChatDotsFill } from 'react-icons/bs'
 import { MdNotificationsActive } from 'react-icons/md'
-import { BiUserCircle } from 'react-icons/bi'
 import { FaBars } from 'react-icons/fa'
 import { useMyContext } from '../context/AppContext'
 import Loading from './Loading'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-    const { toggleMinibar,user,userLoading } = useMyContext()
+    const { toggleMinibar, user, userLoading } = useMyContext()
+
+    const [search, setSearch] = useState('')
+    const navigate = useNavigate()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (!search) return
+        navigate(`/search?q=${search}`)
+    }
+
+
     return (
         <Wrapper>
             <div className="nav-center">
@@ -17,16 +28,12 @@ const Navbar = () => {
                     <Logo width='80px' />
                     <h4>IOE Forum</h4>
                 </div>
-                <form className='search-form'>
+                <form className='search-form' onSubmit={handleSubmit}>
                     <BsSearch />
-                    <input type="text" placeholder='Search...' />
+                    <input type="text" placeholder='Search...' value={search} onChange={e => setSearch(e.target.value)} />
                 </form>
                 <div className='user-btns'>
-                    {/* <button className='btn login-btn'>Log in</button>
-                    <button className='btn '>sign up</button> */}
-
-                    {/* <img src={user.profile_pic}/> */}
-                    {userLoading ? <Loading/>:<img src={user.profile_pic}/>}
+                    {userLoading ? <Loading /> : <img src={user.profile_pic} />}
                     <MdNotificationsActive />
                     <BsFillChatDotsFill />
                 </div>

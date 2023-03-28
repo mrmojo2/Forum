@@ -9,7 +9,10 @@ import CreatePost from './CreatePost.js'
 import Register from './Register.js'
 import NotFound from './NotFound.js'
 import SinglePostPage from './SinglePostPage.js'
+import SearchResults from './SearchResults.js'
 
 
 
-export { Home, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage }
+export {
+    Home, Syllabus, SharedLayout, Notice, Events, Login, ProtectedRoute, CreatePost, Register, NotFound, SinglePostPage, SearchResults
+}

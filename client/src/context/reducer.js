@@ -147,6 +147,14 @@ const reducer = (state, action) => {
         })
     }
 
+    if (action.type === 'search_success') {
+        return ({
+            ...state,
+            loading: false,
+            searchResults: action.payload.posts
+        })
+    }
+
 
     throw new Error('action milena sathi !' + action.type)
 }

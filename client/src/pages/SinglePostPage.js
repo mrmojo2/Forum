@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { Loading } from '../components'
+import { GoBack, Loading } from '../components'
 import { useMyContext } from '../context/AppContext'
 import { NotFound } from '../pages'
+import { BiArrowBack } from 'react-icons/bi'
+
 
 const SinglePostPage = () => {
     const { getSinglePost, loading } = useMyContext()
@@ -37,6 +39,7 @@ const SinglePostPage = () => {
 
     return (
         <Wrapper>
+            <GoBack p='Post' />
             <header className='post-header post-div'>
                 <h2> {post.title}</h2><br />
                 <div className='post-info'>

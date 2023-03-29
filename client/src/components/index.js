@@ -8,8 +8,8 @@ import Loading from './Loading'
 import Alert from "./Alert";
 import PostsContainer from "./PostsContainer";
 import EditProfileForm from "./EditProfileForm";
+import GoBack from "./GoBack";
 
 export {
-    Navbar, Logo, Sidebar, Eventsbar, Minibar, SinglePost, Loading, Alert, PostsContainer, EditProfileForm
-
+    Navbar, Logo, Sidebar, Eventsbar, Minibar, SinglePost, Loading, Alert, PostsContainer, EditProfileForm, GoBack
 }

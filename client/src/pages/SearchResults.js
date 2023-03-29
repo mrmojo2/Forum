@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { PostsContainer } from '../components'
+import { PostsContainer, GoBack } from '../components'
 import { useMyContext } from '../context/AppContext'
 
 const SearchResults = () => {
@@ -15,15 +15,14 @@ const SearchResults = () => {
     }, [location])
     return (
         <Wrapper>
-            <div className='search-head'>
-
-            </div>
+            <GoBack p='search results' />
             <PostsContainer posts={searchResults} />
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
+
 
 `
 

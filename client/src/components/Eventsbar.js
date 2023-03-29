@@ -28,6 +28,10 @@ const Eventsbar = () => {
                     <li><a href="#">Notice</a></li>
                     <li><a href="#">Notice</a></li>
                     <li><a href="#">Notice</a></li>
+                    <li><a href="#">Notice</a></li>
+                    <li><a href="#">Notice</a></li>
+                    <li><a href="#">Notice</a></li>
+                    <li><a href="#">Notice</a></li>
                 </ul>
             </div>
         </Wrapper>

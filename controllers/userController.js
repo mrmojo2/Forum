@@ -68,7 +68,7 @@ const updateProfile = async (req, res) => {
         new: true,
     })
 
-    const tokenUser = { name: user.name, role: user.role, userId: user._id }
+    const tokenUser = { name: user.name, role: user.role, userId: user._id, profile_pic: user.profile_pic }
     attachCookieToResponse({ res, user: tokenUser })
 
     res.status(StatusCodes.OK).json({ tokenUser, user })

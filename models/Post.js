@@ -23,15 +23,20 @@ const PostSchema = new mongoose.Schema({
         default: undefined,
         required: [true, 'please provide some tags']
     },
+    // postedBy: {
+    //     id: {
+    //         type: mongoose.Types.ObjectId,
+    //         ref: 'User',
+    //         required: [true, 'please provide user']
+    //     },
+    //     name: {
+    //         type: String,
+    //     }
+    // },
     postedBy: {
-        id: {
-            type: mongoose.Types.ObjectId,
-            ref: 'User',
-            required: [true, 'please provide user']
-        },
-        name: {
-            type: String,
-        }
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'please provide user']
     },
     poster: {
         type: String,

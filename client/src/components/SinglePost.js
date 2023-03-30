@@ -31,7 +31,7 @@ const SinglePost = ({ title, upvotes, comments, tags, _id, postedBy }) => {
                         <h3 className='post-header'>{title}</h3>
                     </Link>
                     {
-                        (user.userId === postedBy.id || user.role === 'admin') &&
+                        (user.userId === postedBy || user.role === 'admin') &&
                         <button onClick={() => setToggle(!toggle)}>
                             <BiDotsVerticalRounded />
                         </button>

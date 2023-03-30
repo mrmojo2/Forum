@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { GoBack, Loading } from '../components'
 import { useMyContext } from '../context/AppContext'
 import { NotFound } from '../pages'
-import { BiArrowBack } from 'react-icons/bi'
 
 
 const SinglePostPage = () => {
@@ -45,7 +44,7 @@ const SinglePostPage = () => {
                 <div className='post-info'>
                     <p>Posted At: {new Date(post?.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
                     <p>Modified At: {new Date(post?.createdAt).toDateString().split(' ').slice(1).join(' ')}</p>
-                    <p>Posted By: <Link to={`/profile/${post?.postedBy?.id}/`}> {post?.postedBy?.name} </Link></p>
+                    <p>Posted By: <Link to={`/profile/${post?.postedBy?._id}/`}> {post?.postedBy?.name} </Link></p>
                 </div>
             </header>
             <div className='post-body post-div'>

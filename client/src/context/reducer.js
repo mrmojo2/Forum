@@ -128,12 +128,12 @@ const reducer = (state, action) => {
     if (action.type === 'update_profile_success') {
         return ({
             ...state,
-            loading: false,
             user: action.payload.tokenUser,
             profile: action.payload.user,
             showAlert: true,
             alertText: 'profile successfully updated',
             alertType: 'success',
+            loading: false,
         })
     }
 
